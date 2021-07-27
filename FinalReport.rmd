@@ -17,9 +17,12 @@ GSS <-read.csv(file="GSScsv.csv",header=TRUE)
 # this is the slick way to make all char variables into factor variables
 GSSN= select(GSS, ! is.numeric)
 GSSN=purrr::map(GSSN, as.factor)
-GSSN = data.frame(GSSN)
+GSSN$X<-1:178
+#GSSN = data.frame(GSSN)
+GSS2=select(GSS, is.numeric)
+# merge two data frames by ID
+GSS <- merge(GSSN,GSS2,by="X")
 ```
-
 
 <!--In this section you explain what you are trying to show.  Where did the data come from?  What is the research or other question you are trying to answer?.  If you skimp in this section expect to be marked down in your grade. Paint a picture of the project a couple of paragraphs is expected!-->
 
@@ -47,7 +50,8 @@ barchartGC(~RACE + CAPPUN,data=GSS, type="percent")
 ```
 
 
-It appears that Black are more against CAPPUN compared to other and white who are more in favor of CAPPUN. 
+It appears that Black are more against CAPUNN compared to Other and White who are more in favor of CAPUNN. 
+
 
 ### Numerical Descriptive Results
 
@@ -61,7 +65,6 @@ colPerc(table1)
 ```
 
 
-Based on the table above, Black are 34.62 in favor of CAPPUN where the other is 83.33 and White is 68.66 in favor of CAPPUN. It appears that there is a difference between Black verses Other and White. 
 
 ## Inferential Results
 
@@ -153,7 +156,3 @@ fisherXY(GSS$RACE,GSS$CAPPUN, confL = 0, printAll = TRUE)
 # Discussion and Conclusion
 
 <!--Discussion and conclusion here.  If you found a relationship be sure to consider whether the relationship occurs because one of the variavbles causes the other, or whether they perhasps are related for some other reason.  Watch the chapter 6 videos from the GeorgeTown videos collection.!-->
-
-
-
-When we looked at fisherXY test we can see that there is a huge difference between Back White and Other. We also saw that there isn't much of a difference between Other and White.  
